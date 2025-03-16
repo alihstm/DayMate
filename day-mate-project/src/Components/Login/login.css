@@ -1,0 +1,76 @@
+:root {
+  --lightBlue: #68a3ba;
+  --white: #ffffff;
+  --white2: #f7f5ff;
+  --white-less: #fafafa;
+  --darkNavy: #1e3a4c;
+  --gray: #dfdfdf;
+  --red: oklch(0.577 0.245 27.325);
+  --red-less: oklch(0.885 0.062 18.334);
+}
+
+.custom-whiteLess-bg {
+  background-color: var(--white-less);
+}
+.custom-lightBlue-bg {
+  background-color: var(--lightBlue);
+}
+.custom-darkNavy-bg {
+  background-color: var(--darkNavy);
+}
+.custom-red-bg {
+  background-color: var(--red);
+}
+.custom-redLess-bg {
+  background-color: var(--red-less);
+}
+.custom-white2-color {
+  color: var(--white2);
+}
+.custom-white-color {
+  color: var(--white);
+}
+.custom-darkNavy-color {
+  color: var(--darkNavy);
+}
+.custom-gray-color {
+  color: var(--gray);
+}
+.custom-red-color {
+  color: var(--red);
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slideDown {
+  animation: slideDown 0.15s ease-out;
+}
