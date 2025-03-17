@@ -1,67 +1,55 @@
-# DayMate ✅☀️🗓️  
-**Your all-in-one productivity companion!**  
+<div align="center">
+  <a href="https://instagram.com/m.hadi.hajihosseini">
+    <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" width="100"/>
+  </a>
+  <a href="https://codingyar.com">
+    <img src="https://img.shields.io/badge/website-blue?style=for-the-badge&logo=About.me&logoColor=white" width="100"/>
+  </a>
+  <a href="https://t.me/hajihosseini_cy">
+    <img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" width="100"/>
+  </a>
+</div>
 
-## Overview  
-DayMate is a **Single Page Application (SPA)** designed to help users stay organized and efficient. It integrates three essential productivity tools:  
 
-- **✅ To-Do List App** – Manage tasks with ease.  
-- **☀️ Weather App** – Stay updated with real-time weather information.  
-- **📅 Calendar** – Keep track of important dates and events.  
+# What is this project?
+<span><img src="https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=green" /></span>
+<span><img src="https://img.shields.io/badge/Docker-2CA5E0?style=flat&logo=docker&logoColor=white" /></span>
+<span><img src="https://img.shields.io/badge/PostgreSQL-316192?style=flat&logo=postgresql&logoColor=white" /></span>
 
-Before accessing these features, users can sign in using **Google authentication** or their **email and password**.  
+This is a boilerplate to start a django project with postgresql as database running on docker.
 
-## Tech Stack  
-DayMate is built using modern web technologies to ensure performance, scalability, and a great user experience:  
+# How to use?
 
-### 🔹 Frontend  
-- **Tailwind CSS** – Utility-first styling for a sleek and responsive design.
-- **JavaScript** – The backbone of dynamic functionality. 
-- **React.js** – A powerful library for building interactive UIs.    
-- **Material UI** – Pre-designed components for a polished look.  
+<strong>If you want to get notified about the future changes Follow my github account.</strong>
 
-### 🔹 Backend  
-- **Django** – A high-level Python web framework for handling server-side logic.  
-- **Django REST Framework (DRF)** – API development and authentication management.  
-- **PostgreSQL** – A reliable and scalable relational database.  
+First clone the project.
 
-### 🔹 Additional Tools  
-- **Docker** – Containerization for seamless deployment.  
-- **Postman** – API testing and development.  
-
-## Installation & Setup  
-To run DayMate locally, follow these steps:  
-
-### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/yourusername/daymate.git
-cd daymate
+git clone https://github.com/hadiMh/Django_Docker_with_PostgreSql.git
 ```
 
-### 2️⃣ Set Up the Backend (Django)
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
-```
+Then make sure Docker is running.
+* If you are on windows click on the Docker Desktop icon and wait for about a minute.
 
-### 3️⃣ Set Up the Frontend (React)
-```bash
-cd frontend
-npm install
-npm start
-```
+Then in the project directory run this command:
 
-### 4️⃣ Docker (Optional)
 ```bash
 docker-compose up --build
 ```
 
-## Features  
-✔️ **User Authentication** – Login via Google or email/password.  
-✔️ **To-Do List** – Add, edit, and delete tasks.  
-✔️ **Weather App** – Get real-time weather updates.  
-✔️ **Calendar** – Organize and plan events.  
-✔️ **Modern UI** – A clean, responsive interface using Tailwind and Material UI.
+It will create two containers:
+One for Django and one for PostgreSql as the database for the project.
+All the required packages will be installed.
+
+### Install a new package.
+* Attention:
+If you want to install a package for django project you should run this command:
+
+```bash
+docker-compose exec web pip install <package-name>
+``` 
+
+Don't forget to add the new package to requirements.txt for further use:
+```bash
+docker-compose exec web pip freeze > requirements.txt
+```
