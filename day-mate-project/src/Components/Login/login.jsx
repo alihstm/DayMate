@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import "../Login/login.css";
 import Dot from "../Dot/dot";
-import { loginUser } from "/DayMate/DayMate/day-mate-project/src/Utils/api";
+import { loginUser } from "../../Utils/api";
 import { RxCross2 } from "react-icons/rx";
 
 const InputField = ({ id, type, placeholder, value, onChange }) => (
