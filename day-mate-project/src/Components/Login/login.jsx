@@ -21,7 +21,7 @@ const InputField = ({ id, type, placeholder, value, onChange }) => (
 
 const ErrorPopup = ({ message, onClose }) => (
   <div className="fixed top-0 left-1/2 transform -translate-x-1/2 mt-4 px-6 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-slideDown z-50 custom-red-bg custom-white-color">
-    <span className="font-medium">{message}</span>
+    <span className="font-medium whitespace-nowrap">{message}</span>
     <button
       onClick={onClose}
       className="custom-whiteLess-bg rounded-full p-1 hover:cursor-pointer transition custom-red-color"
@@ -71,7 +71,7 @@ const Login = () => {
   );
 
   return (
-    <div className="relative flex flex-row items-center justify-between w-[65rem] h-[38rem]">
+    <div className="relative flex flex-row items-center justify-between sm:w-[65rem] sm:h-[38rem] w-[100%] h-[35rem]">
       <div className="absolute inset-0 flex flex-wrap pointer-events-none">
         {dots}
       </div>
@@ -86,14 +86,14 @@ const Login = () => {
         />
       )}
 
-      <div className="flex flex-col items-center justify-between p-10 w-[45%] h-[85%] rounded-3xl custom-lightBlue-bg">
+      <div className="flex flex-col items-center justify-between sm:p-10 sm:w-[45%] sm:h-[85%] p-5 w-[21rem] h-[35rem] rounded-3xl custom-lightBlue-bg">
         <h1 className="text-4xl font-bold custom-alexandria-font custom-darkNavy-color">
           دی میت
         </h1>
 
         <div className="flex flex-col items-center justify-between h-[4.5rem]">
           <h2 className="text-3xl font-bold custom-white2-color">خوش اومدی!</h2>
-          <p className="font-medium custom-gray-color">
+          <p className="font-medium sm:text-[1rem] custom-gray-color">
             {form.isLogin
               ? "برای ورود لطفا ایمیل و رمز عبورت رو وارد کن"
               : "برای ثبت نام لطفا ایمیلت رو وارد کن"}
@@ -145,7 +145,7 @@ const Login = () => {
         </p>
       </div>
 
-      <div className="flex items-center justify-center w-[50%] h-full rounded-3xl custom-login-banner">
+      <div className="sm:flex hidden items-center justify-center w-[50%] h-full rounded-3xl custom-login-banner">
         <div className="flex flex-col items-start justify-between bg-transparent w-[85%] h-[90%] rounded-2xl">
           <h1 className="text-3xl font-bold w-[25rem] custom-white2-color">
             دی میت <br /> دستیار هوشمند روزانه شما!
