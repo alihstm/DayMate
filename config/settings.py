@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # My app
     'accounts',
+    'To_Do_List',
 
     # Pack Installed
     "rest_framework",
@@ -51,6 +52,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+    'django_filters',
+    'jalali_date',
 ]
 
 SITE_ID = 1
@@ -125,13 +128,39 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
+
+
+# Jalali Date Settings
+JALALI_DATE_DEFAULTS = {
+   'Strftime': {
+        'date': '%d %B %Y',  # تغییر فرمت تاریخ
+        'datetime': '%H:%M:%S _ %d %B %Y',  # تغییر فرمت تاریخ و زمان
+    },
+    'Static': {
+        'js': [
+            'admin/js/django_jalali.min.js',
+        ],
+        'css': {
+            'all': [
+                'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css',
+            ]
+        }
+    },
+}
+
+# اضافه کردن تنظیمات جدید
+JDATE_FORMAT = "j F Y"
+JDATETIME_FORMAT = "j F Y H:i"
+PERSIAN_MONTH_NAMES = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
+PERSIAN_NUMBERS = True
 
 
 # Static files (CSS, JavaScript, Images)
