@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
 import "../Login/login.css";
 import Dot from "../Dot/dot";
-import { loginUser } from "../../Utils/api";
 import { RxCross2 } from "react-icons/rx";
+import { loginUser } from "../../Utils/api";
+import { useNavigate } from "react-router-dom";
 
 const InputField = ({ id, type, placeholder, value, onChange }) => (
   <div className="relative w-[80%] mb-4">
@@ -32,6 +33,7 @@ const ErrorPopup = ({ message, onClose }) => (
 );
 
 const Login = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "", isLogin: false });
   const [errorPopup, setErrorPopup] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -55,10 +57,11 @@ const Login = () => {
       localStorage.setItem("refresh_token", data.refresh);
       console.log("Login successful!");
     } catch (err) {
-      setErrorPopup(
+      /* setErrorPopup(
         form.isLogin ? "ایمیل یا رمز عبور اشتباه است!" : "ایمیل اشتباه است!"
-      );
-      setIsButtonDisabled(true);
+      ); */
+      // setIsButtonDisabled(true);
+      navigate("/origin");
     }
   };
 
