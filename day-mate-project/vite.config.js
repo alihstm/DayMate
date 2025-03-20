@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     strictPort: true,
+    port: 5173,
   },
   optimizeDeps: {
     include: ["axios"],
