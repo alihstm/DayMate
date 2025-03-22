@@ -2,6 +2,8 @@
 
 **Your all-in-one productivity companion!**
 
+![Screenshot (31)](https://github.com/user-attachments/assets/573506e1-29b6-4433-b78f-9d567e3ad110)
+
 ## Overview
 
 DayMate is a **Single Page Application (SPA)** designed to help users stay organized and efficient. It integrates three essential productivity tools:
