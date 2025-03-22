@@ -1,7 +1,7 @@
 from django.urls import path
+from .views import ToDoListApiView
 
-app_name = 'To_Do_List'
 
 urlpatterns = [
-    # فعلاً خالی
+    path('api/to_do_list/' , ToDoListApiView.as_view() , name= 'to_do_list')
 ]
