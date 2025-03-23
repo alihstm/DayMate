@@ -5,8 +5,10 @@
   --white-less: #fafafa;
   --darkNavy: #1e3a4c;
   --gray: #dfdfdf;
+  --dark-gray: #9f9f9f;
   --red: oklch(0.577 0.245 27.325);
   --red-less: oklch(0.885 0.062 18.334);
+  --blue: #3f75ff;
 }
 
 .custom-whiteLess-bg {
@@ -24,6 +26,15 @@
 .custom-redLess-bg {
   background-color: var(--red-less);
 }
+.custom-gray-bg {
+  background-color: var(--gray);
+}
+.custom-darkGray-bg {
+  background-color: var(--dark-gray);
+}
+.custom-blue-bg {
+  background-color: var(--blue);
+}
 .custom-white2-color {
   color: var(--white2);
 }
@@ -38,6 +49,9 @@
 }
 .custom-red-color {
   color: var(--red);
+}
+.custom-gray-border {
+  border: 0.1rem solid var(--gray);
 }
 @keyframes float {
   0% {
@@ -73,4 +87,10 @@
 }
 .animate-slideDown {
   animation: slideDown 0.15s ease-out;
+}
+.custom-direction {
+  direction: ltr;
+}
+.custom-ml {
+  margin-left: 0.3rem;
 }
