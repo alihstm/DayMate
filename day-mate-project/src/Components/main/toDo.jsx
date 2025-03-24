@@ -72,7 +72,7 @@ const ToDo = () => {
             <div className="flex flex-row items-center justify-between px-2 w-full mt-2">
               <div className="relative mt-4">
                 <button
-                  className="flex items-center text-sm text-gray-700 hover:text-black"
+                  className="flex flex-row items-center justify-between text-sm text-gray-700 w-15 hover:cursor-pointer hover:text-black"
                   onClick={() => setIsPopoverOpen((prev) => !prev)}
                 >
                   <IoMdPricetag className="w-4 h-4 mr-2" />
