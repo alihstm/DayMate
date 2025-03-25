@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../Login/login.css";
+import "/DayMate/DayMate/day-mate-project/src/Components/global.css";
 import { IoIosAdd } from "react-icons/io";
 import { IoMdPricetag } from "react-icons/io";
 import { FaRegTrashCan } from "react-icons/fa6";
@@ -59,6 +59,7 @@ const CustomPopover = ({ isOpen, onClose, onAddTag, tags }) => {
 
         <input
           type="text"
+          maxLength={22}
           value={newTag}
           onChange={(e) => setNewTag(e.target.value)}
           className="text-sm px-1 py-1 focus:outline-none placeholder:text-gray-400 placeholder:font-semibold"

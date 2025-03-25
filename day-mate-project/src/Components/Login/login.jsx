@@ -1,8 +1,8 @@
 import { useState, useMemo } from "react";
-import "../Login/login.css";
-import Dot from "../Dot/dot";
+import "/DayMate/DayMate/day-mate-project/src/Components/global.css";
+import Dot from "../Extra/dot";
 import { RxCross2 } from "react-icons/rx";
-import { loginUser } from "../../Utils/api";
+import { loginUser } from "../../Common/Utils/api";
 import { useNavigate } from "react-router-dom";
 
 const InputField = ({ id, type, placeholder, value, onChange }) => (

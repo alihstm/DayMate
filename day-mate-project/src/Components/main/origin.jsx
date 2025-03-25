@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../Login/login.css";
+import "/DayMate/DayMate/day-mate-project/src/Components/global.css";
 import logo from "/DayMate/DayMate/day-mate-project/src/assets/Material/logo.jpg";
 import { RiSettings3Fill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
@@ -7,7 +7,7 @@ import { PiPottedPlantFill } from "react-icons/pi";
 //import "@theme-toggles/react/css/Around.css";
 //import { Around } from "@theme-toggles/react";
 import SplitText from "../Extra/splitText";
-import ToDo from "../main/toDo";
+import ToDo from "../ToDo/toDo";
 
 const Origin = () => {
   return (
