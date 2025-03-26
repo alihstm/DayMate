@@ -9,7 +9,7 @@ class HashTagSerialzers(serializers.ModelSerializer):
 
 
 class ToDoListSerializer(serializers.ModelSerializer):
-    hashtags = HashTagSerialzers(many=True)
+    hashtags = HashTagSerialzers(many=True , required=False)
     class Meta:
         model =  ToDoList
-        fields = ['id' , 'description' , 'completed' , 'priority' , 'due_date' , 'hashtags']
+        fields = ['id' ,'title', 'description' , 'completed' , 'priority' , 'due_date' , 'hashtags']

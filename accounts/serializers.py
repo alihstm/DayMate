@@ -37,6 +37,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'first_name', 'last_name']
 
 
+class GetAllUserSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+    
 
 
 
@@ -57,8 +62,3 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 
 
-
-# class UserSerializers(serializers.Serializer):
-#     username = serializers.CharField(max_length = 70)
-#     password = serializers.CharField(max_length = 70)
-#     email = serializers.CharField(max_length = 70)

@@ -1,15 +1,23 @@
 from django.contrib.auth.models import User
-from rest_framework import generics, status
+from rest_framework import generics, status , permissions
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated , AllowAny
 from django.contrib.auth import get_user_model , authenticate, logout
 
-from .serializers import UserRegisterSerializers, UserLoginSerializer, UserProfileSerializer
+from .serializers import UserRegisterSerializers, UserLoginSerializer, UserProfileSerializer , GetAllUserSerializers
 
 import requests
 
+
+class GetAllUser(APIView):
+    permission_classes=[AllowAny]
+    def get(self , request):
+        user = User.objects.all()
+        serializer_class = GetAllUserSerializers(instance=user , many=True)
+        return Response(serializer_class.data )
+        # permission_classes = [permissions.IsAdminUser]
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
