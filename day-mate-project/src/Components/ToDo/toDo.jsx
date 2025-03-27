@@ -50,6 +50,14 @@ const useTaskManager = () => {
     }
   };
 
+  const handleEditTitleChange = (value) => {
+    setEditTitle(value);
+  };
+
+  const handleEditDescriptionChange = (value) => {
+    setEditDescription(value);
+  };
+
   return {
     tasks,
     setTasks,
@@ -61,6 +69,10 @@ const useTaskManager = () => {
     handleTaskComplete,
     handleTaskDelete,
     handleEditTask,
+    handleEditTitleChange,
+    handleEditDescriptionChange,
+    setEditTitle,
+    setEditDescription,
   };
 };
 
@@ -88,6 +100,8 @@ const TaskItem = ({
   visibleDescriptionId,
   editDescription,
   setVisibleDescriptionId,
+  onEditTitleChange,
+  onEditDescriptionChange,
 }) => (
   <div
     className={`flex flex-col justify-between w-full rounded-lg custom-mt-2 custom-gray-border ${
@@ -105,7 +119,7 @@ const TaskItem = ({
           {editingTaskId === index ? (
             <input
               value={editTitle}
-              onChange={(e) => onEdit(index, e.target.value)}
+              onChange={(e) => onEditTitleChange(e.target.value)}
               className="px-1 text-sm font-bold rounded-md focus:outline-none custom-gray-border"
               autoFocus
             />
@@ -182,7 +196,7 @@ const TaskItem = ({
       {editingTaskId === index ? (
         <input
           value={editDescription}
-          onChange={(e) => onEdit(index, e.target.value)}
+          onChange={(e) => onEditDescriptionChange(e.target.value)}
           className="w-full px-1 py-1 text-sm rounded-md focus:outline-none custom-gray-border custom-whiteLess-bg"
         />
       ) : (
@@ -237,7 +251,7 @@ const ToDo = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-between px-3 py-4 w-[26%] h-[100%] rounded-2xl custom-whiteLess-bg">
+    <section className="flex flex-col items-center justify-between px-3 py-4 sm:w-[26%] w-[22rem] h-[100%] rounded-2xl custom-whiteLess-bg">
       <TaskHeader
         isShown={uiState.isShown}
         onToggle={() =>
@@ -264,6 +278,8 @@ const ToDo = () => {
               visibleDescriptionId={taskManager.visibleDescriptionId}
               editDescription={taskManager.editDescription}
               setVisibleDescriptionId={taskManager.setVisibleDescriptionId}
+              onEditTitleChange={taskManager.handleEditTitleChange}
+              onEditDescriptionChange={taskManager.handleEditDescriptionChange}
             />
           ))
         ) : (

@@ -11,11 +11,11 @@ import ToDo from "../ToDo/toDo";
 
 const Origin = () => {
   return (
-    <main className="flex flex-col items-center justify-between pb-5 w-[70rem] h-[50rem]">
-      <header className="flex flex-row items-center justify-between w-full h-[10%]">
-        <div className="flex flex-row items-center justify-between w-[18%]">
-          <img src={logo} className="w-18 h-18 rounded-full" />
-          <h1 className="text-3xl font-bold custom-darkNavy-color custom-alexandria-font">
+    <main className="flex flex-col items-center justify-between pb-5 sm:w-[70rem] sm:h-[50rem] h-[60rem]">
+      <header className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[10%] h-[25%]">
+        <div className="flex flex-row items-center justify-between sm:w-[18%] w-[50%]">
+          <img src={logo} className="sm:w-18 sm:h-18 w-26 h-26 rounded-full" />
+          <h1 className="sm:w-[60.5%] w-[35%] text-3xl font-bold custom-darkNavy-color custom-alexandria-font">
             دی میت
           </h1>
         </div>
@@ -45,7 +45,7 @@ const Origin = () => {
         </div>
       </header>
 
-      <section className="flex flex-row items-center justify-between w-full h-[85%]">
+      <section className="flex flex-row items-center justify-between w-full sm:h-[85%] h-[70%]">
         <ToDo />
       </section>
     </main>
