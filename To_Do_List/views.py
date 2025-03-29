@@ -39,4 +39,11 @@ class ToDoListApiView(APIView):
             return Response(serializer.data , status=status.HTTP_200_OK)
         return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)
     
+    def delete(self , request , pk):
+        post = ToDoList.objects.get(id=pk)
+        post.delete()
+        return Response({'message': 'تسک ناراحت شد ولی حذف شد'}, status=status.HTTP_200_OK)
+    
+    
+    
     
