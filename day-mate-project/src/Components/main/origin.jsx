@@ -8,6 +8,7 @@ import { PiPottedPlantFill } from "react-icons/pi";
 //import { Around } from "@theme-toggles/react";
 import SplitText from "../Extra/splitText";
 import ToDo from "../ToDo/toDo";
+import Weather from "../Weather/weather";
 
 const Origin = () => {
   return (
@@ -45,8 +46,11 @@ const Origin = () => {
         </div>
       </header>
 
-      <section className="flex flex-row items-center justify-between w-full sm:h-[85%] h-[70%]">
+      <section className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[85%] h-[70%]">
         <ToDo />
+        <div className="w-[26%] h-full rounded-2xl">
+          <Weather />
+        </div>
       </section>
     </main>
   );

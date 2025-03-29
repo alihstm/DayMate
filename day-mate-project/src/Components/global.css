@@ -4,6 +4,7 @@
   --white2: #f7f5ff;
   --white-less: #fafafa;
   --darkNavy: #1e3a4c;
+  --light-gray: #f0f0f0;
   --gray: #dfdfdf;
   --dark-gray: #9f9f9f;
   --red: oklch(0.577 0.245 27.325);
@@ -25,6 +26,9 @@
 }
 .custom-redLess-bg {
   background-color: var(--red-less);
+}
+.custom-lightGray-bg {
+  background-color: var(--light-gray);
 }
 .custom-gray-bg {
   background-color: var(--gray);
@@ -49,6 +53,9 @@
 }
 .custom-red-color {
   color: var(--red);
+}
+.custom-blue-color {
+  color: var(--blue);
 }
 .custom-gray-border {
   border: 0.1rem solid var(--gray);
@@ -99,4 +106,18 @@
 }
 .custom-mt-2 {
   margin-top: 0.5rem;
+}
+@keyframes moonSlide {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.moon-slide {
+  animation: moonSlide 4s ease-in-out infinite;
 }
