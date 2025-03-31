@@ -3,7 +3,14 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { IoIosPause } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import cloudy from "../../assets/Material/cloudy.png";
+import rain from "../../assets/Material/rain.png";
+import snow from "../../assets/Material/snow.png";
 import clearNight from "../../assets/Material/clear-night.png";
+import clearDay from "../../assets/Material/clear-day.png";
+import sponcer from "/DayMate/DayMate/day-mate-project/src/assets/Material/Walex.png";
+import { PiFlowerTulipBold } from "react-icons/pi";
+import { LuHardDriveDownload } from "react-icons/lu";
+import illustation from "/DayMate/DayMate/day-mate-project/src/assets/Material/illustration.svg";
 
 const Weather = () => {
   const [iranTime, setIranTime] = useState("");
@@ -11,6 +18,29 @@ const Weather = () => {
   const [gregorianDate, setGregorianDate] = useState("");
   const [hijriDate, setHijriDate] = useState("");
   const [activeButton, setActiveButton] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
+  const [error, setError] = useState(null);
+  const [isDay, setIsDay] = useState(true);
+
+  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+  const API_URL = import.meta.env.VITE_WEATHER_API_URL;
+
+  const fetchWeather = async () => {
+    try {
+      const response = await fetch(
+        `${API_URL}?q=Tehran&units=metric&appid=${API_KEY}`
+      );
+      if (!response.ok) {
+        throw new Error("Weather data fetch failed");
+      }
+
+      const data = await response.json();
+      setWeatherData(data);
+    } catch (err) {
+      setError(err.message);
+      console.error("Error fetching weather:", err);
+    }
+  };
 
   const convertToPersianNumbers = (text) => {
     const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
@@ -27,6 +57,7 @@ const Weather = () => {
       "جمعه",
       "شنبه",
     ];
+
     const persianMonths = [
       "فروردین",
       "اردیبهشت",
@@ -49,10 +80,12 @@ const Weather = () => {
       ...options,
       weekday: "long",
     }).format(date);
+
     const month = new Intl.DateTimeFormat("fa-IR", {
       ...options,
       month: "numeric",
     }).format(date);
+
     const day = new Intl.DateTimeFormat("fa-IR", {
       ...options,
       day: "numeric",
@@ -64,7 +97,6 @@ const Weather = () => {
     };
 
     const monthIndex = parseInt(persianToEnglish(month)) - 1;
-
     return `${weekday} ${convertToPersianNumbers(day)} ${
       persianMonths[monthIndex]
     }`;
@@ -94,6 +126,17 @@ const Weather = () => {
   };
 
   useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeather();
+        },
+        (error) => console.error("Error getting location:", error),
+        { enableHighAccuracy: true }
+      );
+    }
+
     const updateTime = () => {
       const time = new Date().toLocaleTimeString("en-US", {
         timeZone: "Asia/Tehran",
@@ -101,21 +144,32 @@ const Weather = () => {
         hour: "2-digit",
         minute: "2-digit",
       });
+
       setIranTime(convertToPersianNumbers(time));
       setIranDate(getPersianDate());
       setGregorianDate(getGregorianDate());
       setHijriDate(getHijriDate());
+      checkDayTime();
     };
-
     updateTime();
 
     const interval = setInterval(updateTime, 1000);
-
     return () => clearInterval(interval);
   }, []);
 
   const handleButtonClick = (button) => {
     setActiveButton(activeButton === button ? null : button);
+  };
+
+  const getTemperature = () => {
+    if (!weatherData) return "...";
+    const temp = Math.round(weatherData.main.temp);
+    return convertToPersianNumbers(temp.toString()) + "°";
+  };
+
+  const checkDayTime = () => {
+    const hours = new Date().getHours();
+    setIsDay(hours >= 6 && hours < 18);
   };
 
   const Timer = (hour, minute, second) => {
@@ -142,6 +196,7 @@ const Weather = () => {
 
     useEffect(() => {
       let interval;
+
       if (isRunning) {
         interval = setInterval(() => {
           if (seconds > 0) {
@@ -158,6 +213,7 @@ const Weather = () => {
           }
         }, 1000);
       }
+
       return () => clearInterval(interval);
     }, [hours, minutes, seconds, isRunning]);
 
@@ -176,6 +232,7 @@ const Weather = () => {
               className="text-center text-2xl font-bold px-1 py-1 rounded-md placeholder:text-black placeholder:text-2xl placeholder:text-center outline-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none custom-lightGray-bg"
               style={{ direction: "ltr" }}
             />
+
             <p className="text-gray-500 text-xs">ثانیه</p>
           </div>
 
@@ -191,6 +248,7 @@ const Weather = () => {
               className="text-center text-2xl font-bold px-2 py-1 rounded-md placeholder:text-black placeholder:text-2xl placeholder:text-center outline-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none custom-lightGray-bg"
               style={{ direction: "ltr" }}
             />
+
             <p className="text-gray-500 text-xs">دقیقه</p>
           </div>
 
@@ -206,6 +264,7 @@ const Weather = () => {
               className="text-center text-2xl font-bold px-2 py-1 rounded-md placeholder:text-black placeholder:text-2xl placeholder:text-center outline-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none custom-lightGray-bg"
               style={{ direction: "ltr" }}
             />
+
             <p className="text-gray-500 text-xs">ساعت</p>
           </div>
         </div>
@@ -224,6 +283,7 @@ const Weather = () => {
               "شروع"
             )}
           </button>
+
           {isRunning && (
             <button
               onClick={handleReset}
@@ -238,6 +298,23 @@ const Weather = () => {
     );
   };
 
+  const getWeatherImage = () => {
+    if (!weatherData) return cloudy;
+
+    const weatherId = weatherData.weather[0].id;
+    const temp = weatherData.main.temp;
+
+    if (weatherId >= 200 && weatherId < 600) {
+      return rain;
+    } else if (weatherId >= 600 && weatherId < 700) {
+      return snow;
+    } else if (weatherId === 800) {
+      return isDay ? clearDay : clearNight;
+    } else {
+      return cloudy;
+    }
+  };
+
   return (
     <section className="w-full h-[45%] rounded-2xl custom-whiteLess-bg">
       <div className="flex flex-row px-2 py-2 w-full h-[50%]">
@@ -246,6 +323,7 @@ const Weather = () => {
 
           <div className="flex flex-col items-center justify-center w-full h-[35%] gap-2">
             <p className="text-md font-bold">{iranDate}</p>
+
             <p className="flex flex-row text-[0.6rem] text-gray-600">
               {gregorianDate} | {hijriDate}
             </p>
@@ -286,29 +364,45 @@ const Weather = () => {
 
         <div className="flex flex-col items-center justify-between pt-1 w-[48%] h-full">
           <div className="flex flex-row items-center justify-between w-[95%]">
-            <p className="text-4xl text-gray-600 font-bold">۲۲°</p>
+            <p className="text-4xl text-gray-600 font-bold">
+              {getTemperature()}
+            </p>
+
             <div className="flex flex-row items-center justify-center pl-4 w-[50%] h-full relative">
               <img
-                src={clearNight}
+                src={isDay ? clearDay : clearNight}
                 className="absolute z-0 w-14 h-14 moon-slide"
                 alt=""
               />
+
               <img
-                src={cloudy}
+                src={getWeatherImage()}
                 className="relative z-10 -left-4 w-14 h-14"
                 alt=""
               />
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between w-[95%] h-[40%]">
+          <div className="flex flex-col items-center justify-between w-[100%] h-[40%]">
             <p className="text-sm font-semibold">آسمون زیباست🎈</p>
-            <div className="flex flex-row items-center justify-between w-[95%] h-full">
+
+            <div className="flex flex-row items-center justify-between w-[100%] h-full">
               <span className="flex flex-row items-center justify-center gap-1 text-xs font-bold w-[50%]">
-                ۲۲°<p className="text-gray-500">حداکثر</p>
+                {weatherData
+                  ? convertToPersianNumbers(
+                      Math.round(weatherData?.main.temp_max).toString()
+                    ) + "°"
+                  : ""}
+                <p className="text-gray-500">حداکثر</p>
               </span>
+
               <span className="flex flex-row items-center justify-center gap-1 text-xs font-bold w-[50%]">
-                ۱۷°<p className="text-gray-500">حداقل</p>
+                {weatherData
+                  ? convertToPersianNumbers(
+                      Math.round(weatherData?.main.temp_min).toString()
+                    ) + "°"
+                  : ""}
+                <p className="text-gray-500">حداقل</p>
               </span>
             </div>
           </div>
@@ -330,10 +424,47 @@ const Weather = () => {
         </div>
       </div>
 
-      <div className="w-full h-[50%]">
-        {activeButton === "button1" && <Timer />}
+      <div className="px-3 pt-2 w-full h-[50%]">
+        {activeButton === "button1" ? (
+          <Timer />
+        ) : (
+          <div className="flex flex-row items-center justify-between w-full h-full">
+            <div className="flex flex-col items-start pb-5 w-[70%] h-full">
+              <div className="flex flex-row items-center justify-between gap-1 pl-3 pr-2 py-1 rounded-lg custom-gray-bg">
+                <img src={sponcer} alt="" className="w-6 h-6" />
+                <a
+                  href="#"
+                  className="text-xs font-semibold hover:underline hover:cursor-pointer"
+                >
+                  والکس؛ خرید آسان بیت‌کوین
+                </a>
+              </div>
+
+              <div className="flex flex-row items-center justify-between gap-1 text-green-700 custom-mt-2">
+                <PiFlowerTulipBold />
+                <p className="text-xs font-semibold">
+                  نوروز با دی میت - روز یازدهم
+                </p>
+              </div>
+
+              <p className="text-xs font-semibold text-red-700 custom-mt-2">
+                عید سعید فطر(تعطیل)
+              </p>
+
+              <div className="flex flex-row items-center justify-between gap-1 custom-mt-2">
+                <LuHardDriveDownload />
+                <p className="text-xs font-semibold">روز جهانی بک‌آپ گرفتن</p>
+              </div>
+            </div>
+
+            <div className="flex items-end w-[25%] h-full">
+              <img src={illustation} alt="" className="w-full " />
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
 };
+
 export default Weather;

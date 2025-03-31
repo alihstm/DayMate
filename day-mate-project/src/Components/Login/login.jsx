@@ -61,7 +61,7 @@ const Login = () => {
         form.isLogin ? "ایمیل یا رمز عبور اشتباه است!" : "ایمیل اشتباه است!"
       ); */
       // setIsButtonDisabled(true);
-      navigate("/origin");
+      navigate("/loading/origin");
     }
   };
 
