@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # My app
     'accounts',
     'To_Do_List',
+    'task_random_todo_list',
 
     # Pack Installed
     "rest_framework",
