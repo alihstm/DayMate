@@ -17,10 +17,13 @@
     "@tailwindcss/vite": "^4.0.13",
     "@theme-toggles/react": "^4.1.0",
     "axios": "^1.8.4",
+    "jalali-moment": "^3.3.11",
+    "persian-number": "^1.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.4.0",
+    "recharts": "^2.15.1",
     "tailwindcss": "^4.0.13"
   },
   "devDependencies": {

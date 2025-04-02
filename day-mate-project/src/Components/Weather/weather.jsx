@@ -13,6 +13,7 @@ import { LuHardDriveDownload } from "react-icons/lu";
 import illustation from "/DayMate/DayMate/day-mate-project/src/assets/Material/illustration.svg";
 import Timer from "../Weather/timer";
 import Forecast from "../Weather/forecast";
+import PrayerTimes from "../Weather/prayerTimes";
 const Weather = () => {
   const [iranTime, setIranTime] = useState("");
   const [iranDate, setIranDate] = useState("");
@@ -191,7 +192,7 @@ const Weather = () => {
   };
 
   return (
-    <section className="w-full h-[45%] rounded-2xl custom-whiteLess-bg">
+    <section className="w-full h-[45%] rounded-2xl shadow-lg custom-whiteLess-bg">
       <div className="flex flex-row px-2 py-2 w-full h-[50%]">
         <div className="flex flex-col items-center justify-between pt-1 w-[52%] h-full">
           <h1 className="sm:text-4xl text-5xl font-bold custom-blue-color">
@@ -304,12 +305,14 @@ const Weather = () => {
       <div
         className={`px-3 pt-2 w-full h-[50%] rounded-2xl ${
           activeButton === "button3" ? "custom-gray-bg pl-1 pr-1" : ""
-        }`}
+        } ${activeButton === "button2" ? "flex items-start" : ""}`}
       >
         {activeButton === "button1" ? (
           <Timer />
         ) : activeButton === "button3" ? (
           <Forecast />
+        ) : activeButton === "button2" ? (
+          <PrayerTimes />
         ) : (
           <div className="flex flex-row items-center justify-between w-full h-full">
             <div className="flex flex-col items-start pb-5 w-[70%] h-full">
