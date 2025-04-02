@@ -12,8 +12,8 @@ import Weather from "../Weather/weather";
 
 const Origin = () => {
   return (
-    <main className="flex flex-col items-center justify-between pb-5 sm:w-[70rem] sm:h-[50rem] h-[60rem]">
-      <header className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[10%] h-[25%]">
+    <main className="flex flex-col items-center justify-between pb-5 sm:w-[70rem] sm:h-[50rem] h-[120rem]">
+      <header className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[10%] h-[14%]">
         <div className="flex flex-row items-center justify-between sm:w-[18%] w-[50%]">
           <img src={logo} className="sm:w-18 sm:h-18 w-26 h-26 rounded-full" />
           <h1 className="sm:w-[60.5%] w-[35%] text-3xl font-bold custom-darkNavy-color custom-alexandria-font">
@@ -46,9 +46,9 @@ const Origin = () => {
         </div>
       </header>
 
-      <section className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[85%] h-[70%]">
+      <section className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[85%] h-[80%]">
         <ToDo />
-        <div className="w-[26%] h-full rounded-2xl">
+        <div className="sm:w-[26%] w-[22rem] sm:h-full h-[50%] rounded-2xl">
           <Weather />
         </div>
       </section>

@@ -11,7 +11,8 @@ import sponcer from "/DayMate/DayMate/day-mate-project/src/assets/Material/Walex
 import { PiFlowerTulipBold } from "react-icons/pi";
 import { LuHardDriveDownload } from "react-icons/lu";
 import illustation from "/DayMate/DayMate/day-mate-project/src/assets/Material/illustration.svg";
-
+import Timer from "../Weather/timer";
+import Forecast from "../Weather/forecast";
 const Weather = () => {
   const [iranTime, setIranTime] = useState("");
   const [iranDate, setIranDate] = useState("");
@@ -172,132 +173,6 @@ const Weather = () => {
     setIsDay(hours >= 6 && hours < 18);
   };
 
-  const Timer = (hour, minute, second) => {
-    const [hours, setHours] = useState(hour);
-    const [minutes, setMinutes] = useState(minute);
-    const [seconds, setSeconds] = useState(second);
-    const [isRunning, setIsRunning] = useState(false);
-
-    const handleInputChange = (e, setter) => {
-      const value = Math.min(Math.max(0, parseInt(e.target.value) || 0), 59);
-      setter(value);
-    };
-
-    const handleReset = () => {
-      setHours(0);
-      setMinutes(0);
-      setSeconds(0);
-      setIsRunning(false);
-    };
-
-    const handleStartStop = () => {
-      setIsRunning(!isRunning);
-    };
-
-    useEffect(() => {
-      let interval;
-
-      if (isRunning) {
-        interval = setInterval(() => {
-          if (seconds > 0) {
-            setSeconds(seconds - 1);
-          } else if (minutes > 0) {
-            setMinutes(minutes - 1);
-            setSeconds(59);
-          } else if (hours > 0) {
-            setHours(hours - 1);
-            setMinutes(59);
-            setSeconds(59);
-          } else {
-            setIsRunning(false);
-          }
-        }, 1000);
-      }
-
-      return () => clearInterval(interval);
-    }, [hours, minutes, seconds, isRunning]);
-
-    return (
-      <div className="flex flex-col items-center justify-between pb-3 w-full h-[100%]">
-        <div className="flex flex-row items-center justify-between w-[70%] h-[70%]">
-          <div className="flex flex-col items-center justify-center gap-1">
-            <input
-              type="number"
-              value={convertToPersianNumbers(String(seconds).padStart(2, "0"))}
-              placeholder="۰۰"
-              onChange={(e) => handleInputChange(e, setSeconds)}
-              min="0"
-              max="59"
-              disabled={isRunning}
-              className="text-center text-2xl font-bold px-1 py-1 rounded-md placeholder:text-black placeholder:text-2xl placeholder:text-center outline-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none custom-lightGray-bg"
-              style={{ direction: "ltr" }}
-            />
-
-            <p className="text-gray-500 text-xs">ثانیه</p>
-          </div>
-
-          <div className="flex flex-col items-center justify-center gap-1">
-            <input
-              type="number"
-              value={convertToPersianNumbers(String(minutes).padStart(2, "0"))}
-              placeholder="۰۰"
-              onChange={(e) => handleInputChange(e, setMinutes)}
-              min="0"
-              max="59"
-              disabled={isRunning}
-              className="text-center text-2xl font-bold px-2 py-1 rounded-md placeholder:text-black placeholder:text-2xl placeholder:text-center outline-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none custom-lightGray-bg"
-              style={{ direction: "ltr" }}
-            />
-
-            <p className="text-gray-500 text-xs">دقیقه</p>
-          </div>
-
-          <div className="flex flex-col items-center justify-center gap-1">
-            <input
-              type="number"
-              value={convertToPersianNumbers(String(hours).padStart(2, "0"))}
-              placeholder="۰۰"
-              onChange={(e) => handleInputChange(e, setHours)}
-              min="0"
-              max="23"
-              disabled={isRunning}
-              className="text-center text-2xl font-bold px-2 py-1 rounded-md placeholder:text-black placeholder:text-2xl placeholder:text-center outline-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none custom-lightGray-bg"
-              style={{ direction: "ltr" }}
-            />
-
-            <p className="text-gray-500 text-xs">ساعت</p>
-          </div>
-        </div>
-
-        <div className="flex flex-row items-center justify-center gap-2 h-[25%]">
-          <button
-            onClick={handleStartStop}
-            className="flex flex-row items-center justify-center gap-0.5 text-sm font-bold px-6 py-2 rounded-md hover:cursor-pointer custom-blue-bg custom-white-color"
-          >
-            {isRunning ? (
-              <>
-                <IoIosPause />
-                توقف
-              </>
-            ) : (
-              "شروع"
-            )}
-          </button>
-
-          {isRunning && (
-            <button
-              onClick={handleReset}
-              className="flex flex-row items-center justify-center gap-0.5 text-gray-500 text-sm font-bold px-6 py-2 rounded-md hover:cursor-pointer custom-gray-bg"
-            >
-              <RxCross2 />
-              پایان
-            </button>
-          )}
-        </div>
-      </div>
-    );
-  };
-
   const getWeatherImage = () => {
     if (!weatherData) return cloudy;
 
@@ -319,7 +194,9 @@ const Weather = () => {
     <section className="w-full h-[45%] rounded-2xl custom-whiteLess-bg">
       <div className="flex flex-row px-2 py-2 w-full h-[50%]">
         <div className="flex flex-col items-center justify-between pt-1 w-[52%] h-full">
-          <h1 className="text-4xl font-bold custom-blue-color">{iranTime}</h1>
+          <h1 className="sm:text-4xl text-5xl font-bold custom-blue-color">
+            {iranTime}
+          </h1>
 
           <div className="flex flex-col items-center justify-center w-full h-[35%] gap-2">
             <p className="text-md font-bold">{iranDate}</p>
@@ -329,7 +206,7 @@ const Weather = () => {
             </p>
           </div>
 
-          <div className="flex flex-row items-center justify-between w-full">
+          <div className="flex flex-row items-center justify-between sm:w-full w-[85%]">
             <button
               className={`flex flex-row items-center justify-between text-xs py-1  px-2 rounded-2xl hover:cursor-pointer ${
                 activeButton === "button1"
@@ -364,7 +241,7 @@ const Weather = () => {
 
         <div className="flex flex-col items-center justify-between pt-1 w-[48%] h-full">
           <div className="flex flex-row items-center justify-between w-[95%]">
-            <p className="text-4xl text-gray-600 font-bold">
+            <p className="sm:text-4xl text-5xl text-gray-600 font-bold">
               {getTemperature()}
             </p>
 
@@ -383,11 +260,11 @@ const Weather = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between w-[100%] h-[40%]">
+          <div className="flex flex-col items-center justify-between w-[100%] sm:h-[40%] h-[36%]">
             <p className="text-sm font-semibold">آسمون زیباست🎈</p>
 
             <div className="flex flex-row items-center justify-between w-[100%] h-full">
-              <span className="flex flex-row items-center justify-center gap-1 text-xs font-bold w-[50%]">
+              <span className="flex flex-row items-center justify-center gap-1 sm:text-xs text-sm font-bold w-[50%]">
                 {weatherData
                   ? convertToPersianNumbers(
                       Math.round(weatherData?.main.temp_max).toString()
@@ -396,7 +273,7 @@ const Weather = () => {
                 <p className="text-gray-500">حداکثر</p>
               </span>
 
-              <span className="flex flex-row items-center justify-center gap-1 text-xs font-bold w-[50%]">
+              <span className="flex flex-row items-center justify-center gap-1 sm:text-xs text-sm font-bold w-[50%]">
                 {weatherData
                   ? convertToPersianNumbers(
                       Math.round(weatherData?.main.temp_min).toString()
@@ -424,17 +301,23 @@ const Weather = () => {
         </div>
       </div>
 
-      <div className="px-3 pt-2 w-full h-[50%]">
+      <div
+        className={`px-3 pt-2 w-full h-[50%] rounded-2xl ${
+          activeButton === "button3" ? "custom-gray-bg pl-1 pr-1" : ""
+        }`}
+      >
         {activeButton === "button1" ? (
           <Timer />
+        ) : activeButton === "button3" ? (
+          <Forecast />
         ) : (
           <div className="flex flex-row items-center justify-between w-full h-full">
             <div className="flex flex-col items-start pb-5 w-[70%] h-full">
               <div className="flex flex-row items-center justify-between gap-1 pl-3 pr-2 py-1 rounded-lg custom-gray-bg">
-                <img src={sponcer} alt="" className="w-6 h-6" />
+                <img src={sponcer} alt="" className="sm:w-6 w-8 sm:h-6 h-8" />
                 <a
                   href="#"
-                  className="text-xs font-semibold hover:underline hover:cursor-pointer"
+                  className="sm:text-xs text-sm font-semibold hover:underline hover:cursor-pointer"
                 >
                   والکس؛ خرید آسان بیت‌کوین
                 </a>
@@ -442,23 +325,25 @@ const Weather = () => {
 
               <div className="flex flex-row items-center justify-between gap-1 text-green-700 custom-mt-2">
                 <PiFlowerTulipBold />
-                <p className="text-xs font-semibold">
+                <p className="sm:text-xs text-sm font-semibold">
                   نوروز با دی میت - روز یازدهم
                 </p>
               </div>
 
-              <p className="text-xs font-semibold text-red-700 custom-mt-2">
+              <p className="sm:text-xs text-sm font-semibold text-red-700 custom-mt-2">
                 عید سعید فطر(تعطیل)
               </p>
 
               <div className="flex flex-row items-center justify-between gap-1 custom-mt-2">
                 <LuHardDriveDownload />
-                <p className="text-xs font-semibold">روز جهانی بک‌آپ گرفتن</p>
+                <p className="sm:text-xs text-sm font-semibold">
+                  روز جهانی بک‌آپ گرفتن
+                </p>
               </div>
             </div>
 
             <div className="flex items-end w-[25%] h-full">
-              <img src={illustation} alt="" className="w-full " />
+              <img src={illustation} alt="" className="w-full" />
             </div>
           </div>
         )}
