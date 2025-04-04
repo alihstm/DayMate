@@ -1,21 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import moment from "jalali-moment";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { motion } from "framer-motion"; // اضافه کردن Framer Motion
 
 const PersianCalendar = () => {
-  // State to track the current displayed month
   const [currentDate, setCurrentDate] = useState(moment().locale("fa"));
+  const [occasions, setOccasions] = useState([]);
 
-  // Get month details
-  const firstDayOfMonth = moment(currentDate).startOf("jMonth").day(); // 0 = Saturday
+  const today = moment().locale("fa").startOf("day");
+  const firstDayOfMonth = moment(currentDate).startOf("jMonth").day();
   const daysInMonth = moment(currentDate).jDaysInMonth();
-  const today = moment().locale("fa").startOf("day"); // Today's Persian date
-
-  // Persian week names (Saturday to Friday)
   const weekdays = ["ش", "ی", "د", "س", "چ", "پ", "ج"];
 
-  // Add number converter function
   const toPersianNumber = (num) => {
     const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     return String(num)
@@ -24,9 +21,53 @@ const PersianCalendar = () => {
       .join("");
   };
 
-  // Change month
   const changeMonth = (step) => {
-    setCurrentDate(moment(currentDate).add(step, "jMonth"));
+    const newDate = moment(currentDate).add(step, "jMonth");
+    setCurrentDate(newDate);
+  };
+
+  useEffect(() => {
+    const fetchHolidays = async () => {
+      const year = currentDate.locale("en").format("YYYY");
+
+      try {
+        const { data } = await axios.get(
+          "https://calendarific.com/api/v2/holidays",
+          {
+            params: {
+              api_key: "jPBda2gRjih0nwT2qfPK0NVjQOIQyOGs",
+              country: "IR",
+              year,
+              type: "national",
+            },
+          }
+        );
+
+        const holidays = data.response.holidays.map((holiday) => ({
+          name: holiday.name,
+          date: moment(holiday.date.iso),
+        }));
+
+        setOccasions(holidays);
+      } catch (error) {
+        console.error("Error fetching holidays:", error);
+        setOccasions([]);
+      }
+    };
+
+    fetchHolidays();
+  }, [currentDate]);
+
+  const isOccasion = (day) => {
+    const date = moment(currentDate)
+      .jDate(day + 1)
+      .locale("en");
+    return occasions.find(
+      (o) =>
+        o.date.jYear() === date.jYear() &&
+        o.date.jMonth() === date.jMonth() &&
+        o.date.jDate() === date.jDate()
+    );
   };
 
   return (
@@ -38,15 +79,22 @@ const PersianCalendar = () => {
         >
           <MdKeyboardArrowRight className="text-xl custom-white-color" />
         </button>
-        <h2 className="text-xl font-bold text-emerald-600">
-          {currentDate.format("jMMMM")}{" "}
+
+        <motion.h2
+          className="text-xl font-bold text-emerald-600"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          {currentDate.clone().locale("fa").format("jMMMM")}{" "}
           {toPersianNumber(currentDate.format("jYYYY"))}
-        </h2>
+        </motion.h2>
+
         <button
           onClick={() => changeMonth(1)}
           className="bg-emerald-600 p-2 rounded-xl hover:cursor-pointer"
         >
-          <MdKeyboardArrowLeft className="text-xl hover:cursor-pointer custom-white-color" />
+          <MdKeyboardArrowLeft className="text-xl custom-white-color" />
         </button>
       </div>
 
@@ -64,20 +112,31 @@ const PersianCalendar = () => {
         ))}
 
         {Array.from({ length: daysInMonth }).map((_, day) => {
-          const date = moment(currentDate).jDate(day + 1);
-          const isToday = date.isSame(today, "day");
+          const jDate = moment(currentDate).jDate(day + 1);
+          const isToday = jDate.isSame(today, "day");
+          const occasion = isOccasion(day);
+          const weekDay = jDate.day();
 
           return (
-            <div
+            <motion.div
               key={day}
-              className={`sm:text-[1rem] text-lg sm:p-1.5 p-2 rounded-lg cursor-pointer ${
-                isToday
-                  ? "font-bold bg-emerald-600 custom-white-color"
-                  : "hover:bg-gray-200"
-              }`}
+              title={occasion?.name || ""}
+              className={`sm:text-[1rem] text-lg sm:p-1.5 p-2 rounded-lg cursor-pointer
+                ${isToday ? "font-bold bg-emerald-600 custom-white-color" : ""}
+                ${
+                  occasion
+                    ? "text-red-800 font-semibold custom-redLess-bg"
+                    : weekDay === 6
+                    ? "text-red-500 font-semibold"
+                    : "hover:bg-gray-200"
+                }
+              `}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 * day }}
             >
               {toPersianNumber(day + 1)}
-            </div>
+            </motion.div>
           );
         })}
       </div>

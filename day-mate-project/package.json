@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "^4.0.13",
     "@theme-toggles/react": "^4.1.0",
     "axios": "^1.8.4",
+    "framer-motion": "^12.6.3",
     "jalali-moment": "^3.3.11",
     "persian-number": "^1.6.0",
     "react": "^19.0.0",
