@@ -101,6 +101,9 @@
 .custom-ml {
   margin-left: 0.3rem;
 }
+.custom-ml-2 {
+  margin-left: 7rem;
+}
 .custom-mr {
   margin-right: 1rem;
 }
@@ -123,4 +126,21 @@
 }
 .moon-slide {
   animation: moonSlide 4s ease-in-out infinite;
+}
+@keyframes bend {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.hover\:animate-bend:hover {
+  animation: bend 1s ease-in-out;
 }

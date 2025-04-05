@@ -10,6 +10,8 @@ import clearDay from "../../assets/Material/clear-day.png";
 import sponcer from "/DayMate/DayMate/day-mate-project/src/assets/Material/Walex.png";
 import { PiFlowerTulipBold } from "react-icons/pi";
 import { LuHardDriveDownload } from "react-icons/lu";
+import { FaWind } from "react-icons/fa6";
+import { WiHumidity } from "react-icons/wi";
 import illustation from "/DayMate/DayMate/day-mate-project/src/assets/Material/illustration.svg";
 import Timer from "../Weather/timer";
 import Forecast from "../Weather/forecast";
@@ -169,6 +171,17 @@ const Weather = () => {
     return convertToPersianNumbers(temp.toString()) + "°";
   };
 
+  const getHumidity = () => {
+    if (!weatherData) return "...";
+    return convertToPersianNumbers(weatherData.main.humidity.toString()) + "%";
+  };
+
+  const getWindSpeed = () => {
+    if (!weatherData) return "...";
+    const windSpeedKmh = Math.round(weatherData.wind.speed * 3.6);
+    return convertToPersianNumbers(windSpeedKmh.toString()) + "Km/h";
+  };
+
   const checkDayTime = () => {
     const hours = new Date().getHours();
     setIsDay(hours >= 6 && hours < 18);
@@ -261,26 +274,18 @@ const Weather = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between w-[100%] sm:h-[40%] h-[36%]">
+          <div className="flex flex-col items-center justify-between w-[100%] sm:h-[32%] h-[36%]">
             <p className="text-sm font-semibold">آسمون زیباست🎈</p>
 
-            <div className="flex flex-row items-center justify-between w-[100%] h-full">
+            <div className="flex flex-row items-center justify-between w-[85%]">
               <span className="flex flex-row items-center justify-center gap-1 sm:text-xs text-sm font-bold w-[50%]">
-                {weatherData
-                  ? convertToPersianNumbers(
-                      Math.round(weatherData?.main.temp_max).toString()
-                    ) + "°"
-                  : ""}
-                <p className="text-gray-500">حداکثر</p>
+                {getHumidity()}
+                <WiHumidity className="text-blue-700 w-5 h-5" />
               </span>
 
               <span className="flex flex-row items-center justify-center gap-1 sm:text-xs text-sm font-bold w-[50%]">
-                {weatherData
-                  ? convertToPersianNumbers(
-                      Math.round(weatherData?.main.temp_min).toString()
-                    ) + "°"
-                  : ""}
-                <p className="text-gray-500">حداقل</p>
+                {getWindSpeed()}
+                <FaWind className="text-green-700 w-3 h-3" />
               </span>
             </div>
           </div>

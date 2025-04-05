@@ -95,15 +95,17 @@ const Forecast = () => {
           key={index}
           className="flex flex-col items-center justify-center w-[19%] h-[75%] gap-2 rounded-xl custom-whiteLess-bg"
         >
-          <p className="sm:text-[0.5rem] text-gray-500 text-xs font-bold text-center">
+          <p className="sm:text-[0.5rem] text-[0.7rem] text-gray-500 font-bold text-center">
             {getPersianDate(index + 1)}
           </p>
           <img
             src={getWeatherImage(index)}
             alt="weather"
-            className="w-8 h-8 my-2"
+            className="w-10 h-10 my-2 hover:animate-bend"
           />
-          <h3 className="sm:text-lg text-xl text-gray-700 font-bold">{getTemperature(index)}</h3>
+          <h3 className="sm:text-lg text-xl text-gray-700 font-bold">
+            {getTemperature(index)}
+          </h3>
         </div>
       ))}
     </div>
@@ -111,3 +113,18 @@ const Forecast = () => {
 };
 
 export default Forecast;
+
+const style = document.createElement("style");
+style.textContent = `
+  @keyframes bend {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+  }
+  
+  .hover\\:animate-bend:hover {
+    animation: bend 1s ease-in-out;
+  }
+`;
+document.head.appendChild(style);

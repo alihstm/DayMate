@@ -224,15 +224,16 @@ const TaskItem = ({
       </div>
 
       <p
-        className={`px-2 py-1 text-sm text-black rounded-b-md custom-mt custom-gray-bg whitespace-nowrap overflow-hidden text-ellipsis ${
-          visibleDescriptionId === index ? "flex" : "hidden"
+        className={`px-2 py-1 text-sm text-black rounded-b-md custom-mt custom-gray-bg whitespace-pre-wrap ${
+          visibleDescriptionId === index ? "block" : "hidden"
         }`}
       >
         {editingTaskId === index ? (
-          <input
+          <textarea
             value={editDescription}
             onChange={(e) => onEditDescriptionChange(e.target.value)}
-            className="w-full px-1 py-1 text-sm rounded-md focus:outline-none custom-gray-border custom-whiteLess-bg"
+            className="w-full px-1 py-1 text-sm rounded-md focus:outline-none custom-gray-border custom-whiteLess-bg resize-none"
+            rows={3}
           />
         ) : (
           task.description
@@ -359,10 +360,11 @@ const ToDo = () => {
                 : "opacity-0 scale-95 pointer-events-none"
             }`}
           >
-            <input
+            <textarea
               placeholder="توضیحات بیشتر..."
-              className="mt-2 px-2 w-full text-[0.8rem] text-gray-700 rounded-md focus:outline-0"
+              className="px-2 w-full text-[0.8rem] text-gray-700 rounded-md focus:outline-0"
               value={newTaskState.description}
+              rows={1}
               onChange={(e) =>
                 setNewTaskState((prev) => ({
                   ...prev,

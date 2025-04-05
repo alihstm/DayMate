@@ -21,28 +21,30 @@ const Origin = () => {
           </h1>
         </div>
 
-        <div className="flex items-center justify-center px-10 py-2 rounded-3xl custom-whiteLess-bg">
-          <SplitText
-            text="yaD etaM"
-            className="text-2xl font-semibold text-center custom-direction custom-darkNavy-color"
-            delay={100}
-            animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
-            animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
-            easing="easeOutCubic"
-            threshold={0.2}
-          />
-          <PiPottedPlantFill className="w-[1.5rem] h-[1.5rem] custom-darkNavy-color" />
-        </div>
+        <div className="flex sm:flex-row flex-col items-center justify-between sm:w-[26%] sm:h-full h-[45%]">
+          <div className="flex items-center justify-center px-5 py-2 rounded-3xl custom-whiteLess-bg">
+            <SplitText
+              text="yaD etaM"
+              className="text-2xl font-semibold text-center custom-direction custom-darkNavy-color"
+              delay={100}
+              animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
+              animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
+              easing="easeOutCubic"
+              threshold={0.2}
+            />
+            <PiPottedPlantFill className="w-[1.5rem] h-[1.5rem] custom-darkNavy-color" />
+          </div>
 
-        <div className="flex flex-row items-center justify-between w-25">
-          <button className="flex items-center justify-center px-[0.4rem] py-[0.6rem] rounded-full hover:cursor-pointer hover:bg-[#1e3a4c] transition hover:-translate-y-1 custom-whiteLess-bg">
-            <RiSettings3Fill className="w-[2rem] h-[1.6rem] custom-darkNavy-color" />
-          </button>
+          <div className="flex flex-row items-center justify-between w-25">
+            <button className="flex items-center justify-center px-[0.4rem] py-[0.6rem] rounded-full hover:cursor-pointer hover:bg-[#1e3a4c] transition hover:-translate-y-1 custom-whiteLess-bg">
+              <RiSettings3Fill className="w-[2rem] h-[1.6rem] custom-darkNavy-color" />
+            </button>
 
-          <button className="flex items-center justify-center px-[0.4rem] py-[0.6rem] rounded-full hover:cursor-pointer hover:bg-[#1e3a4c] transition hover:-translate-y-1 custom-whiteLess-bg">
-            <FaUser className="w-[2rem] h-[1.6rem] custom-darkNavy-color " />
-          </button>
-          {/*<Around className="w-8 h-8" duration={750} />*/}
+            <button className="flex items-center justify-center px-[0.4rem] py-[0.6rem] rounded-full hover:cursor-pointer hover:bg-[#1e3a4c] transition hover:-translate-y-1 custom-whiteLess-bg">
+              <FaUser className="w-[2rem] h-[1.6rem] custom-darkNavy-color " />
+            </button>
+            {/*<Around className="w-8 h-8" duration={750} />*/}
+          </div>
         </div>
       </header>
 
