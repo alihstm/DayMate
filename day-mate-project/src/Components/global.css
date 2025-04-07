@@ -107,6 +107,9 @@
 .custom-mr {
   margin-right: 1rem;
 }
+.custom-mr-2 {
+  margin-right: 0.6rem;
+}
 .custom-mt {
   margin-top: 0.2rem;
 }
@@ -143,4 +146,11 @@
 }
 .hover\:animate-bend:hover {
   animation: bend 1s ease-in-out;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

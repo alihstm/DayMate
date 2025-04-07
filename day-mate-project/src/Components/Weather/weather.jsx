@@ -277,7 +277,7 @@ const Weather = () => {
           <div className="flex flex-col items-center justify-between w-[100%] sm:h-[32%] h-[36%]">
             <p className="text-sm font-semibold">آسمون زیباست🎈</p>
 
-            <div className="flex flex-row items-center justify-between w-[85%]">
+            <div className="flex flex-row items-center justify-between w-[95%]">
               <span className="flex flex-row items-center justify-center gap-1 sm:text-xs text-sm font-bold w-[50%]">
                 {getHumidity()}
                 <WiHumidity className="text-blue-700 w-5 h-5" />
