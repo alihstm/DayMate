@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import moment from "moment";
+import jMoment from "jalali-moment";
 import { RxCross2 } from "react-icons/rx";
 import { HiMiniArrowTurnDownLeft } from "react-icons/hi2";
 
@@ -33,6 +35,16 @@ const gregorianMonths = [
   "دسامبر",
 ];
 
+const weekdaysFa = {
+  Saturday: "شنبه",
+  Sunday: "یک‌شنبه",
+  Monday: "دوشنبه",
+  Tuesday: "سه‌شنبه",
+  Wednesday: "چهارشنبه",
+  Thursday: "پنج‌شنبه",
+  Friday: "جمعه",
+};
+
 const TimeConvert = ({ onBack }) => {
   const [selectedDay, setSelectedDay] = useState(18);
   const [selectedMonth, setSelectedMonth] = useState("فروردین");
@@ -49,6 +61,10 @@ const TimeConvert = ({ onBack }) => {
       setSelectedYear(2021);
     }
   }, [calendarType]);
+
+  const toPersianDigits = (num) => {
+    return num.toString().replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[digit]);
+  };
 
   const getMonthList = () =>
     calendarType === "shamsi" ? persianMonths : gregorianMonths;
@@ -133,7 +149,7 @@ const TimeConvert = ({ onBack }) => {
                 }}
                 onClick={() => onClick(item)}
               >
-                {item}
+                {typeof item === "number" ? toPersianDigits(item) : item}
               </motion.div>
             );
           })}
@@ -142,8 +158,77 @@ const TimeConvert = ({ onBack }) => {
     );
   };
 
-  const ConvertResult = ({ day, month, year, setConverted }) => {
-    return <></>;
+  const ConvertResult = ({ day, month, year, calendarType, setConverted }) => {
+    const getFormattedDates = () => {
+      let date, shamsiDate, miladiDate, weekday, diffDays;
+
+      if (calendarType === "shamsi") {
+        const monthIndex = persianMonths.indexOf(month) + 1;
+        const dateStr = `${year}/${monthIndex}/${day}`;
+        const jDate = jMoment(dateStr, "jYYYY/jM/jD").startOf("day");
+        date = jDate.clone().locale("en"); // تاریخ میلادی
+        shamsiDate = toPersianDigits(jDate.locale("fa").format("D MMMM YYYY"));
+        const mDay = toPersianDigits(date.date());
+        const mYear = toPersianDigits(date.year());
+        const mMonthFa = gregorianMonths[date.month()];
+        miladiDate = `${mDay} ${mMonthFa} ${mYear}`;
+        weekday = toPersianDigits(jDate.locale("fa").format("dddd"));
+      } else {
+        const monthIndex = gregorianMonths.indexOf(month);
+        const dateStr = `${year}-${monthIndex + 1}-${day}`;
+        date = moment(dateStr, "YYYY-M-D").startOf("day");
+
+        miladiDate = toPersianDigits(date.locale("fa").format("D MMMM YYYY"));
+        shamsiDate = toPersianDigits(
+          jMoment(date).locale("fa").format("D MMMM YYYY")
+        );
+        weekday = toPersianDigits(jMoment(date).locale("fa").format("dddd"));
+      }
+
+      const today = moment().startOf("day");
+      diffDays = date.diff(today, "days");
+
+      return { shamsiDate, miladiDate, weekday, diffDays };
+    };
+
+    const { shamsiDate, miladiDate, weekday, diffDays } = getFormattedDates();
+
+    const getDiffText = () => {
+      if (diffDays === 0) return "امروز";
+      if (diffDays > 0) return `در ${diffDays} روز آینده`;
+      return `${Math.abs(diffDays)} روز پیش`;
+    };
+
+    return (
+      <div className="flex flex-col items-center justify-between w-full h-[80%]">
+        <div className="flex items-center justify-between text-sm w-full">
+          <span className="font-bold text-pink-700">تاریخ شمسی</span>
+          {shamsiDate}
+        </div>
+
+        <div className="flex items-center justify-between text-sm w-full">
+          <span className="font-bold text-pink-700">تاریخ میلادی</span>
+          {miladiDate}
+        </div>
+
+        <div className="flex items-center justify-between text-sm w-full">
+          <span className="font-bold text-pink-700">روز هفته</span>
+          {weekday}
+        </div>
+
+        <div className="flex items-center justify-between text-sm w-full">
+          <span className="font-bold text-pink-700">فاصله زمانی</span>
+          {getDiffText()}
+        </div>
+
+        <button
+          className="text-sm font-bold text-blue-600 hover:scale-105 hover:cursor-pointer transition"
+          onClick={() => setConverted(false)}
+        >
+          تغییر تاریخ
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -223,6 +308,7 @@ const TimeConvert = ({ onBack }) => {
           day={selectedDay}
           month={selectedMonth}
           year={selectedYear}
+          calendarType={calendarType}
           setConverted={setConverted}
         />
       )}
