@@ -154,3 +154,6 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+.vue-scroll-picker {
+  scroll-behavior: smooth;
+}

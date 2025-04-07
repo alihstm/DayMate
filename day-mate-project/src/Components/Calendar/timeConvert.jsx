@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { RxCross2 } from "react-icons/rx";
 import { HiMiniArrowTurnDownLeft } from "react-icons/hi2";
@@ -18,12 +18,57 @@ const persianMonths = [
   "اسفند",
 ];
 
-const TimeConvert = () => {
+const gregorianMonths = [
+  "ژانویه",
+  "فوریه",
+  "مارس",
+  "آوریل",
+  "مه",
+  "ژوئن",
+  "جولای",
+  "اوت",
+  "سپتامبر",
+  "اکتبر",
+  "نوامبر",
+  "دسامبر",
+];
+
+const TimeConvert = ({ onBack }) => {
   const [selectedDay, setSelectedDay] = useState(18);
   const [selectedMonth, setSelectedMonth] = useState("فروردین");
   const [selectedYear, setSelectedYear] = useState(1404);
-  const [showCalendar, setShowCalendar] = useState(false);
   const [converted, setConverted] = useState(false);
+  const [calendarType, setCalendarType] = useState("shamsi");
+
+  useEffect(() => {
+    if (calendarType === "shamsi") {
+      setSelectedMonth("فروردین");
+      setSelectedYear(1400);
+    } else {
+      setSelectedMonth("ژانویه");
+      setSelectedYear(2021);
+    }
+  }, [calendarType]);
+
+  const getMonthList = () =>
+    calendarType === "shamsi" ? persianMonths : gregorianMonths;
+
+  const getYearList = () =>
+    calendarType === "shamsi"
+      ? [...Array(121)].map((_, i) => i + 1300)
+      : [...Array(121)].map((_, i) => i + 1920);
+
+  const handleDayClick = (day) => {
+    setSelectedDay(day);
+  };
+
+  const handleMonthClick = (month) => {
+    setSelectedMonth(month);
+  };
+
+  const handleYearClick = (year) => {
+    setSelectedYear(year);
+  };
 
   const scrollToCenter = (e, type, values) => {
     const scrollTop = e.target.scrollTop;
@@ -31,85 +76,74 @@ const TimeConvert = () => {
     const index = Math.round(scrollTop / itemHeight);
     const value = values[index];
 
-    if (type === "day") setSelectedDay(value);
-    else if (type === "month") setSelectedMonth(value);
-    else if (type === "year") setSelectedYear(value);
+    if (value === undefined) return;
+
+    if (type === "day") {
+      setSelectedDay(value);
+      smoothScrollTo(e.target, index * itemHeight);
+    } else if (type === "month") {
+      setSelectedMonth(value);
+      smoothScrollTo(e.target, index * itemHeight);
+    } else if (type === "year") {
+      setSelectedYear(value);
+      smoothScrollTo(e.target, index * itemHeight);
+    }
   };
 
-  const renderScrollList = (items, selected, onScroll, type) => (
-    <div className="flex-1 relative overflow-hidden">
-      <div className="absolute top-1/2 w-full h-8 -translate-y-1/2 bg-primary-100/20 rounded z-10"></div>
-      <div
-        className="h-32 overflow-y-scroll no-scrollbar text-center py-2"
-        onScroll={(e) => scrollToCenter(e, type, items)}
-      >
-        {items.map((item, index) => (
-          <motion.div
-            key={index}
-            className={`text-sm py-1 ${
-              selected === item
-                ? "text-primary-600 font-bold"
-                : "text-primary-800"
-            }`}
-            layout
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            {item}
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
+  const smoothScrollTo = (element, targetPosition) => {
+    element.scrollTo({
+      center: targetPosition,
+      behavior: "smooth",
+    });
+  };
 
-  const convertResult = ({ day, month, year, setConverted }) => {
+  const renderScrollList = (items, selected, onScroll, type, onClick) => {
     return (
-      <div className="flex flex-col justify-between items-center h-full text-sm text-primary-900">
-        <div className="w-full flex flex-col mt-2 border-t border-secondary-50">
-          <div className="py-2">
-            <div className="flex justify-between">
-              <div>شمسی</div>
-              <div className="flex gap-1 font-bold">
-                <span>{day}</span>
-                <span>{month}</span>
-                <span>{year}</span>
-              </div>
-            </div>
-          </div>
+      <div className="flex-1 relative overflow-hidden">
+        <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-1/2 w-full h-8 -translate-y-1/2 rounded z-20 pointer-events-none" />
+        <div
+          className="h-32 overflow-y-auto no-scrollbar text-center py-2 relative z-0 snap-y snap-mandatory"
+          onScroll={(e) => scrollToCenter(e, type, items)}
+        >
+          {items.map((item, index) => {
+            const isSelected = selected === item;
+            const selectedIndex = items.indexOf(selected);
+            const isBelow = index > selectedIndex;
+            const baseStyle =
+              "text-sm py-1 transition-all duration-200 snap-start";
 
-          <div className="py-2">
-            <div className="flex justify-between">
-              <div>میلادی</div>
-              <div className="flex gap-1 font-bold">
-                <span>7</span>
-                <span>آوریل</span>
-                <span>2025</span>
-              </div>
-            </div>
-          </div>
+            let itemClass = "";
+            if (isSelected) {
+              itemClass = "text-emerald-600 font-bold scale-110";
+            } else if (isBelow) {
+              itemClass = "text-gray-400 opacity-50";
+            } else {
+              itemClass = "text-gray-500";
+            }
 
-          <div className="text-end font-bold py-2.5 border-b border-secondary-50">
-            دوشنبه
-          </div>
-
-          <div className="flex justify-between pt-2">
-            <span>فاصله زمانی (سن)</span>
-            <span className="font-bold">1 روز</span>
-          </div>
-        </div>
-
-        <div className="w-full px-3">
-          <button
-            onClick={() => setConverted(false)}
-            className="rounded-lg bg-secondary-100 text-primary-900 p-2 w-full flex justify-center items-center gap-2 text-[11px] font-bold"
-          >
-            <span className="text-primary-400">تبدیل تاریخ جدید</span>
-            <div className="border border-secondary-300 bg-secondary-100 p-1 text-xs rounded leading-3">
-              N
-            </div>
-          </button>
+            return (
+              <motion.div
+                key={index}
+                className={`${baseStyle} ${itemClass}`}
+                layout
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                style={{
+                  scrollSnapAlign: "start",
+                }}
+                onClick={() => onClick(item)}
+              >
+                {item}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     );
+  };
+
+  const ConvertResult = ({ day, month, year, setConverted }) => {
+    return <></>;
   };
 
   return (
@@ -120,7 +154,7 @@ const TimeConvert = () => {
         </span>
         <button
           className="hover:text-red-600 hover:cursor-pointer transition"
-          onClick={() => setShowCalendar(true)}
+          onClick={onBack}
         >
           <RxCross2 className="w-5 h-5" />
         </button>
@@ -130,11 +164,21 @@ const TimeConvert = () => {
         <div className="flex flex-col justify-between w-full h-[85%]">
           <div className="flex justify-between items-center text-sm text-gray-600">
             <span className="text-primary-700">تاریخ مبدا:</span>
-            <div className="flex gap-5 w-[62%]">
-              <button className="px-2 py-0.5 transition hover:cursor-pointer">
+            <div className="flex sm:gap-5 gap-11 sm:w-[62%] w-[60%]">
+              <button
+                onClick={() => setCalendarType("shamsi")}
+                className={`px-2 py-0.5 rounded transition hover:cursor-pointer ${
+                  calendarType === "shamsi" ? "text-emerald-700 font-bold" : ""
+                }`}
+              >
                 شمسی
               </button>
-              <button className="px-2 py-0.5 transition hover:cursor-pointer">
+              <button
+                onClick={() => setCalendarType("miladi")}
+                className={`px-2 py-0.5 rounded transition hover:cursor-pointer ${
+                  calendarType === "miladi" ? "text-emerald-700 font-bold" : ""
+                }`}
+              >
                 میلادی
               </button>
             </div>
@@ -145,19 +189,24 @@ const TimeConvert = () => {
               [...Array(31)].map((_, i) => i + 1),
               selectedDay,
               scrollToCenter,
-              "day"
+              "day",
+              handleDayClick
             )}
+
             {renderScrollList(
-              persianMonths,
+              getMonthList(),
               selectedMonth,
               scrollToCenter,
-              "month"
+              "month",
+              handleMonthClick
             )}
+
             {renderScrollList(
-              [...Array(121)].map((_, i) => i + 1300),
+              getYearList(),
               selectedYear,
               scrollToCenter,
-              "year"
+              "year",
+              handleYearClick
             )}
           </div>
 
@@ -170,7 +219,7 @@ const TimeConvert = () => {
           </button>
         </div>
       ) : (
-        <convertResult
+        <ConvertResult
           day={selectedDay}
           month={selectedMonth}
           year={selectedYear}
