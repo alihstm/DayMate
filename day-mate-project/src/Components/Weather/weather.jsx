@@ -197,8 +197,6 @@ const Weather = () => {
       return rain;
     } else if (weatherId >= 600 && weatherId < 700) {
       return snow;
-    } else if (weatherId === 800) {
-      return isDay ? clearDay : clearNight;
     } else {
       return cloudy;
     }

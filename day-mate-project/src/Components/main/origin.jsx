@@ -10,6 +10,9 @@ import SplitText from "../Extra/splitText";
 import ToDo from "../ToDo/toDo";
 import Weather from "../Weather/weather";
 import Calendar from "../Calendar/calendar";
+import Currency from "../Currency/currency";
+import Search from "../Search/search";
+
 const Origin = () => {
   return (
     <main className="flex flex-col items-center justify-between pb-5 sm:w-[70rem] sm:h-[50rem] h-[120rem]">
@@ -50,6 +53,15 @@ const Origin = () => {
 
       <section className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[85%] h-[80%]">
         <ToDo />
+
+        <div className="sm:flex hidden flex-col items-center justify-between w-[42%] sm:h-full">
+          <Search />
+
+          <div className="flex flex-row items-center justify-between w-full h-[52%] custom-direction">
+            <Currency />
+          </div>
+        </div>
+
         <div className="flex flex-col items-center justify-between sm:w-[26%] w-[22rem] sm:h-full h-[50%] rounded-2xl">
           <Weather />
           <Calendar />

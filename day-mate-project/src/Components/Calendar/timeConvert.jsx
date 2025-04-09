@@ -71,8 +71,8 @@ const TimeConvert = ({ onBack }) => {
 
   const getYearList = () =>
     calendarType === "shamsi"
-      ? [...Array(121)].map((_, i) => i + 1300)
-      : [...Array(121)].map((_, i) => i + 1920);
+      ? [...Array(121)].map((_, i) => i + 1300).reverse()
+      : [...Array(121)].map((_, i) => i + 1920).reverse();
 
   const handleDayClick = (day) => {
     setSelectedDay(day);
