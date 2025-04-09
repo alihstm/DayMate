@@ -1,1 +1,1 @@
-web: gunicorn DayMate.wsgi
+web: gunicorn config.wsgi --log-file -
