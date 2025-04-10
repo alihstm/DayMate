@@ -253,7 +253,11 @@ const Weather = () => {
 
         <div className="flex flex-col items-center justify-between pt-1 w-[48%] h-full">
           <div className="flex flex-row items-center justify-between w-[95%]">
-            <p className="sm:text-4xl text-5xl text-gray-600 font-bold">
+            <p
+              className={`sm:text-4xl text-5xl font-bold ${
+                isDay ? "text-yellow-400" : "text-purple-400"
+              }`}
+            >
               {getTemperature()}
             </p>
 

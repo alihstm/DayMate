@@ -178,7 +178,11 @@ const TimeConvert = ({ onBack }) => {
         const dateStr = `${year}-${monthIndex + 1}-${day}`;
         date = moment(dateStr, "YYYY-M-D").startOf("day");
 
-        miladiDate = toPersianDigits(date.locale("fa").format("D MMMM YYYY"));
+        const mDay = toPersianDigits(date.date());
+        const mYear = toPersianDigits(date.year());
+        const mMonthFa = gregorianMonths[date.month()];
+        miladiDate = `${mDay} ${mMonthFa} ${mYear}`;
+
         shamsiDate = toPersianDigits(
           jMoment(date).locale("fa").format("D MMMM YYYY")
         );
