@@ -16,7 +16,7 @@ import Search from "../Search/search";
 const Origin = () => {
   return (
     <main className="flex flex-col items-center justify-between pb-5 sm:w-[70rem] sm:h-[50rem] h-[160rem]">
-      <header className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[10%] h-[12%] pb-10">
+      <header className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[10%] h-[14%] pb-10">
         <div className="flex flex-row items-center justify-between sm:w-[18%] w-[50%]">
           <img src={logo} className="sm:w-18 sm:h-18 w-26 h-26 rounded-full" />
           <h1 className="sm:w-[60.5%] w-[35%] text-3xl font-bold custom-white-color custom-alexandria-font">
@@ -24,7 +24,7 @@ const Origin = () => {
           </h1>
         </div>
 
-        <div className="flex sm:flex-row flex-col items-center justify-between sm:w-[26%] sm:h-full h-[45%]">
+        <div className="flex sm:flex-row flex-col items-center justify-between sm:w-[26%] sm:h-full h-[42%]">
           <div className="flex items-center justify-center px-5 py-2 rounded-3xl custom-whiteLess-bg">
             <SplitText
               text="yaD etaM"
