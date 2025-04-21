@@ -15,8 +15,8 @@ import Search from "../Search/search";
 
 const Origin = () => {
   return (
-    <main className="flex flex-col items-center justify-between pb-5 sm:w-[70rem] sm:h-[50rem] h-[120rem]">
-      <header className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[10%] h-[14%]">
+    <main className="flex flex-col items-center justify-between pb-5 sm:w-[70rem] sm:h-[50rem] h-[160rem]">
+      <header className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[10%] h-[12%] pb-10">
         <div className="flex flex-row items-center justify-between sm:w-[18%] w-[50%]">
           <img src={logo} className="sm:w-18 sm:h-18 w-26 h-26 rounded-full" />
           <h1 className="sm:w-[60.5%] w-[35%] text-3xl font-bold custom-white-color custom-alexandria-font">
@@ -47,18 +47,18 @@ const Origin = () => {
         </div>
       </header>
 
-      <section className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[85%] h-[80%]">
+      <section className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[85%] h-[100%]">
         <ToDo />
 
-        <div className="sm:flex hidden flex-col items-center justify-between w-[42%] sm:h-full">
+        <div className="flex flex-col items-center justify-between sm:w-[42%] w-full sm:h-full h-[30%]">
           <Search />
 
-          <div className="flex flex-row items-center justify-between w-full h-[52%] custom-direction">
+          <div className="flex flex-row items-center justify-between w-full sm:h-[52%] h-[48%] custom-direction">
             <Currency />
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between sm:w-[26%] w-[22rem] sm:h-full h-[50%] rounded-2xl">
+        <div className="flex flex-col items-center justify-between sm:w-[26%] w-[22rem] sm:h-full h-[34%] rounded-2xl">
           <Weather />
           <Calendar />
         </div>

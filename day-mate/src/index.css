@@ -10,11 +10,11 @@
   direction: rtl;
   margin: 0rem;
 }
-/* .custom-gradient-bg {
-  background: linear-gradient(120deg, #a8d8ea, #68a3ba);
+.custom-gradient-bg {
+  background: linear-gradient(-45deg, #2b2f33, #384047, #4db6ac, #1e1f21);
   background-size: 400% 400%;
-  animation: gradient 6s ease infinite;
-} */
+  animation: gradientBG 10s ease infinite;
+}
 .custom-teal-bg {
   background-color: var(--teal);
 }
@@ -28,8 +28,19 @@
   background: url("../src/assets/Material/bg2.png");
   background-size: 33em;
 }
-.custom-bg {
+/*.custom-bg {
   background: url("../src/assets/Material/custom-bg.jpg");
-  background-position: contain;
+  background-position: center;
   background-size: 100rem;
+} */
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

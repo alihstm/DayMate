@@ -74,7 +74,7 @@ const Login = () => {
   );
 
   return (
-    <div className="relative flex flex-row items-center justify-between sm:w-[65rem] sm:h-[38rem] w-[100%] h-[35rem]">
+    <section className="relative flex flex-row items-center justify-between sm:w-[65rem] sm:h-[38rem] w-[100%] h-[35rem]">
       <div className="absolute inset-0 flex flex-wrap pointer-events-none">
         {dots}
       </div>
@@ -160,7 +160,7 @@ const Login = () => {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -79,7 +79,7 @@ const PersianCalendar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full h-[52%] p-4 rounded-2xl shadow-lg text-center custom-whiteLess-bg">
+    <section className="flex flex-col items-center w-full h-[52%] p-4 rounded-2xl shadow-lg text-center custom-whiteLess-bg">
       {timeConvertMode === false ? (
         <div className="w-full h-full">
           <div className="flex items-center justify-between w-full">
@@ -171,7 +171,7 @@ const PersianCalendar = () => {
       ) : (
         <TimeConvert onBack={() => setTimeConvertMode(false)} />
       )}
-    </div>
+    </section>
   );
 };
 

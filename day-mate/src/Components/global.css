@@ -157,16 +157,10 @@
 .vue-scroll-picker {
   scroll-behavior: smooth;
 }
-.custom-dollar-bg {
-  background: url("../assets/Material/currency-dollar.png") no-repeat;
-  background-position: 0.5svh;
+.currency-item-hover {
+  transition: all 0.2s ease-in-out;
 }
-.custom-euro-bg {
-  background: url("../assets/Material/currency-euro.png") no-repeat;
-  background-position: 0.5svh;
-}
-.custom-gold-bg {
-  background: url("../assets/Material/currency-gold.png") no-repeat;
-  background-attachment: fixed;
-  background-position: center;
+.currency-item-hover:hover {
+  background-color: rgba(254, 242, 242, 0.8);
+  border-color: #fca5a5;
 }

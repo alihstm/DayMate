@@ -303,7 +303,7 @@ const ToDo = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-between px-3 py-4 sm:w-[26%] w-[22rem] sm:h-[100%] h-[45%] rounded-2xl shadow-lg custom-whiteLess-bg">
+    <section className="flex flex-col items-center justify-between px-3 py-4 sm:w-[26%] w-[22rem] sm:h-[100%] h-[30%] rounded-2xl shadow-lg custom-whiteLess-bg">
       <TaskHeader
         isShown={uiState.isShown}
         onToggle={() =>
