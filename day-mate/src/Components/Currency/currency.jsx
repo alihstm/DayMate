@@ -123,7 +123,7 @@ const Currency = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-start sm:w-[60%] w-full h-full rounded-2xl custom-whiteLess-bg p-2 overflow-y-auto">
+    <section className="flex flex-col items-center justify-start sm:w-[55%] w-full h-full rounded-2xl shadow-md p-2 overflow-y-auto custom-whiteLess-bg">
       <ul className="flex flex-col w-full gap-y-2">
         {selectedCurrencies.map((currencyKey) => {
           const value = data[currencyKey]?.value;

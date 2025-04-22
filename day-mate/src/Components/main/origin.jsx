@@ -12,7 +12,7 @@ import Weather from "../Weather/weather";
 import Calendar from "../Calendar/calendar";
 import Currency from "../Currency/currency";
 import Search from "../Search/search";
-
+import Pet from "../Pet/pet";
 const Origin = () => {
   return (
     <main className="flex flex-col items-center justify-between pb-5 sm:w-[70rem] sm:h-[50rem] h-[160rem]">
@@ -50,11 +50,12 @@ const Origin = () => {
       <section className="flex sm:flex-row flex-col items-center justify-between w-full sm:h-[85%] h-[100%]">
         <ToDo />
 
-        <div className="flex flex-col items-center justify-between sm:w-[42%] w-full sm:h-full h-[30%]">
+        <div className="flex flex-col items-center justify-between sm:w-[45%] w-full sm:h-full h-[30%]">
           <Search />
 
-          <div className="flex flex-row items-center justify-between w-full sm:h-[52%] h-[48%] custom-direction">
+          <div className="flex flex-row sm:items-end items-center justify-between w-full sm:h-[52%] h-[48%] custom-direction">
             <Currency />
+            <Pet />
           </div>
         </div>
 
