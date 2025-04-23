@@ -53,7 +53,7 @@ const Origin = () => {
         <div className="flex flex-col items-center justify-between sm:w-[45%] w-full sm:h-full h-[30%]">
           <Search />
 
-          <div className="flex flex-row sm:items-end items-center justify-between w-full sm:h-[52%] h-[48%] custom-direction">
+          <div className="flex flex-row sm:items-end items-center justify-between w-full sm:h-[52%] h-[45%] custom-direction">
             <Currency />
             <Pet />
           </div>

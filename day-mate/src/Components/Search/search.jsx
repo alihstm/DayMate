@@ -19,26 +19,26 @@ const Search = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-between w-full sm:h-[45%] h-[48%] p-4">
+    <section className="flex flex-col items-center justify-between w-full sm:h-[45%] h-[45%] sm:gap-0 gap-5">
       <div className="flex flex-row items-center w-full h-[40%]">
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="جستجو کنید ..."
-          className="w-full h-[58%] pl-4 pr-5 py-5 font-semibold rounded-xl placeholder:text-gray-600 focus:outline-0 caret-[#9f0184] custom-whiteLess-bg custom-darkNavy-color"
+          className="w-full sm:h-[60%] h-xl pl-4 pr-5 py-5 font-semibold rounded-xl placeholder:text-gray-600 focus:outline-0 caret-[#9f0184] custom-whiteLess-bg custom-darkNavy-color"
         />
 
-        <button className="sticky z-10 p-2 rounded-lg active:scale-95 transition cursor-pointer custom-mr-3 custom-purple-bg">
+        <button className="sticky z-10 p-3 rounded-lg active:scale-95 transition cursor-pointer custom-mr-3 custom-purple-bg">
           <CiSearch className="sticky w-6 h-6 z-10 custom-purple-color" />
         </button>
       </div>
       <div className="w-full max-w-4xl">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+        <div className="align-middle grid grid-cols-4 sm:grid-cols-3 md:grid-cols-5 gap-2">
           {[...Array(10)].map((_, index) => (
             <div
               key={index}
-              className={`relative px-2 py-5 rounded-xl border transition-all duration-150 hover:scale-105 hover:cursor-pointer ${
+              className={`relative sm:px-2 px-1 sm:py-6 py-4 rounded-xl border transition-all duration-150 hover:scale-105 hover:cursor-pointer ${
                 bookmarks[index]
                   ? "bg-blue-50 border-blue-200"
                   : "bg-gray-100 hover:bg-gray-200 border-gray-200"
