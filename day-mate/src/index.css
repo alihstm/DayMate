@@ -10,10 +10,9 @@
   direction: rtl;
   margin: 0rem;
 }
-.custom-gradient-bg {
-  background: linear-gradient(-45deg, #2b2f33, #384047, #4db6ac, #1e1f21);
-  background-size: 400% 400%;
-  animation: gradientBG 10s ease infinite;
+.custom-main-bg {
+  background: url("../src/assets/Material/bg8.svg");
+  background-size: cover;
 }
 .custom-teal-bg {
   background-color: var(--teal);
@@ -42,5 +41,11 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+@media (max-width: 768px) {
+  .custom-main-bg {
+    background: url("../src/assets/Material/bg8.svg");
+    background-position: cover;
   }
 }
