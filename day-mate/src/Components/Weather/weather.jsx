@@ -9,6 +9,7 @@ import snow from "../../assets/Material/snow.png";
 import clearNight from "../../assets/Material/clear-night.png";
 import clearDay from "../../assets/Material/clear-day.png";
 import sponcer from "../../assets/Material/Walex.png";
+import { FaSmileBeam } from "react-icons/fa";
 import { PiFlowerTulipBold } from "react-icons/pi";
 import { LuHardDriveDownload } from "react-icons/lu";
 import { FaWind } from "react-icons/fa6";
@@ -17,6 +18,8 @@ import illustation from "../../assets/Material/illustration.svg";
 import Timer from "../Weather/timer";
 import Forecast from "../Weather/forecast";
 import PrayerTimes from "../Weather/prayerTimes";
+import { getRandomTask } from "/DayMate/day-mate/src/Common/Utils/randomTasks";
+
 const Weather = () => {
   const [iranTime, setIranTime] = useState("");
   const [iranDate, setIranDate] = useState("");
@@ -26,6 +29,7 @@ const Weather = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
   const [isDay, setIsDay] = useState(true);
+  const [randomTask, setRandomTask] = useState("در حال دریافت تسک...");
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
   const API_URL = import.meta.env.VITE_WEATHER_API_URL;
@@ -139,6 +143,13 @@ const Weather = () => {
         { enableHighAccuracy: true }
       );
     }
+
+    const fetchRandomTask = async () => {
+      const task = await getRandomTask();
+      console.log(task);
+      setRandomTask(task);
+    };
+    fetchRandomTask();
 
     const updateTime = () => {
       const time = new Date().toLocaleTimeString("en-US", {
@@ -333,10 +344,8 @@ const Weather = () => {
               </div>
 
               <div className="flex flex-row items-center justify-between gap-1 text-green-700 custom-mt-2">
-                <PiFlowerTulipBold />
-                <p className="sm:text-xs text-sm font-semibold">
-                  نوروز با دی میت - روز یازدهم
-                </p>
+                <FaSmileBeam />
+                <p className="sm:text-xs text-sm font-semibold">{randomTask}</p>
               </div>
 
               <p className="sm:text-xs text-sm font-semibold text-red-700 custom-mt-2">
