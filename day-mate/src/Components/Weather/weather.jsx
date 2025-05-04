@@ -19,6 +19,7 @@ import Timer from "../Weather/timer";
 import Forecast from "../Weather/forecast";
 import PrayerTimes from "../Weather/prayerTimes";
 import { getRandomTask } from "/DayMate/day-mate/src/Common/Utils/randomTasks";
+import { weatherText } from "../../Common/Utils/weatherText";
 
 const Weather = () => {
   const [iranTime, setIranTime] = useState("");
@@ -30,13 +31,28 @@ const Weather = () => {
   const [error, setError] = useState(null);
   const [isDay, setIsDay] = useState(true);
   const [randomTask, setRandomTask] = useState("در حال دریافت تسک...");
+  const [weatherMessage, setWeatherMessage] = useState("در حال دریافت متن...");
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
   const API_URL = import.meta.env.VITE_WEATHER_API_URL;
 
+  const categorizeWeather = (weatherData) => {
+    const temp = weatherData?.main?.temp;
+    const weatherId = weatherData?.weather?.[0]?.id;
+
+    if (temp >= 30) return "گرم";
+    if (temp <= 5) return "سرد";
+
+    if (weatherId >= 300 && weatherId <= 321) return "بارانی";
+    if (weatherId >= 500 && weatherId <= 531) return "بارانی";
+    if (weatherId >= 600 && weatherId <= 622) return "برفی";
+
+    return "گرم";
+  };
+
   const fetchWeather = async () => {
     try {
-      const response = await axios.get(`${API_URL}`, {
+      const response = await axios.get(API_URL, {
         params: {
           q: "Tehran",
           units: "metric",
@@ -44,11 +60,17 @@ const Weather = () => {
         },
       });
       setWeatherData(response.data);
+
+      const category = categorizeWeather(response.data);
+      const message = await weatherText(category);
+      setWeatherMessage(message);
     } catch (err) {
       setError(err.message);
       console.error("Error fetching weather:", err);
+      setWeatherMessage("خطا در دریافت متن آب‌وهوا.");
     }
   };
+
   const convertToPersianNumbers = (text) => {
     const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     return text.replace(/[0-9]/g, (d) => persianNumbers[d]);
@@ -133,24 +155,6 @@ const Weather = () => {
   };
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          fetchWeather();
-        },
-        (error) => console.error("Error getting location:", error),
-        { enableHighAccuracy: true }
-      );
-    }
-
-    const fetchRandomTask = async () => {
-      const task = await getRandomTask();
-      console.log(task);
-      setRandomTask(task);
-    };
-    fetchRandomTask();
-
     const updateTime = () => {
       const time = new Date().toLocaleTimeString("en-US", {
         timeZone: "Asia/Tehran",
@@ -169,6 +173,28 @@ const Weather = () => {
     updateTime();
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const fetchRandomTask = async () => {
+      const task = await getRandomTask();
+      console.log(task);
+      setRandomTask(task);
+    };
+    fetchRandomTask();
+  }, []);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeather();
+        },
+        (error) => console.error("Error getting location:", error),
+        { enableHighAccuracy: true }
+      );
+    }
   }, []);
 
   const handleButtonClick = (button) => {
@@ -287,7 +313,7 @@ const Weather = () => {
           </div>
 
           <div className="flex flex-col items-center justify-between w-[100%] sm:h-[32%] h-[36%]">
-            <p className="text-sm font-semibold">آسمون زیباست🎈</p>
+            <p className="text-[0.8rem] font-semibold">{weatherMessage}</p>
 
             <div className="flex flex-row items-center justify-between w-[95%]">
               <span className="flex flex-row items-center justify-center gap-1 sm:text-xs text-sm font-bold w-[50%]">
@@ -343,7 +369,7 @@ const Weather = () => {
                 </a>
               </div>
 
-              <div className="flex flex-row items-center justify-between gap-1 text-green-700 custom-mt-2">
+              <div className="flex flex-row items-center w-full gap-1 text-green-700 custom-mt-2">
                 <FaSmileBeam />
                 <p className="sm:text-xs text-sm font-semibold">{randomTask}</p>
               </div>
