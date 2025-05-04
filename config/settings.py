@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'accounts',
     'To_Do_List',
     'task_random_todo_list',
+    'weather_text',
 
     # Pack Installed
     "rest_framework",

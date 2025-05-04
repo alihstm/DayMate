@@ -22,4 +22,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('To_Do_List/' , include('To_Do_List.urls')),
     path('task_random/' , include('task_random_todo_list.urls')),
+    path('weather_text/' , include('weather_text.urls')),
 ]
