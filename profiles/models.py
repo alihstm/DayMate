@@ -6,7 +6,6 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    email = models.EmailField(unique=True)
     job = models.CharField(max_length=100, blank=True)
     favorite = models.CharField(max_length=100, blank=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -15,7 +14,7 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user.username}'s profile"\
+        return f"{self.user.username}'s profile"
         
 
 @receiver(post_save, sender=User)
@@ -26,5 +25,3 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save() 
-
-
