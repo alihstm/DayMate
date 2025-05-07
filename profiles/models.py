@@ -6,6 +6,9 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
+    email = models.EmailField(unique=True)
+    job = models.CharField(max_length=100, blank=True)
+    favorite = models.CharField(max_length=100, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=11, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

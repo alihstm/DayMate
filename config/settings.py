@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'To_Do_List',
     'task_random_todo_list',
     'weather_text',
+    'profiles',
 
     # Pack Installed
     "rest_framework",
@@ -211,3 +212,6 @@ REST_FRAMEWORK = {
 }
 
 APPEND_SLASH = False
+
+
+HUGGINGFACE_API_KEY = "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"
