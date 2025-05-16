@@ -247,7 +247,7 @@ const Weather = () => {
           </h1>
 
           <div className="flex flex-col items-center justify-center w-full h-[35%] gap-2">
-            <p className="text-md font-bold">{iranDate}</p>
+            <p className="text-sm font-bold">{iranDate}</p>
 
             <p className="flex flex-row text-[0.6rem] text-gray-600">
               {gregorianDate} | {hijriDate}
@@ -313,7 +313,7 @@ const Weather = () => {
           </div>
 
           <div className="flex flex-col items-center justify-between w-[100%] sm:h-[32%] h-[36%]">
-            <p className="text-[0.8rem] font-semibold">{weatherMessage}</p>
+            <p className="text-[0.7rem] font-semibold">{weatherMessage}</p>
 
             <div className="flex flex-row items-center justify-between w-[95%]">
               <span className="flex flex-row items-center justify-center gap-1 sm:text-xs text-sm font-bold w-[50%]">

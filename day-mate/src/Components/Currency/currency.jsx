@@ -114,12 +114,13 @@ const Currency = () => {
   );
 
   const formatNumber = (num) => {
-    if (!num) return "";
-    const withCommas = num.toLocaleString("en-US", {
-      maximumFractionDigits: 2,
-      minimumFractionDigits: 2,
-    });
-    return toPersianDigits(withCommas);
+    if (num == null) return "";
+
+    const formatted = new Intl.NumberFormat("en-US", {
+      maximumFractionDigits: 2, // فقط اگه اعشار داشت، نشون بده
+    }).format(num);
+
+    return formatted.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]).replace(/,/g, "٬");
   };
 
   return (
